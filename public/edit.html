@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
+    <title>Edit Medicines</title>
+  </head>
+  <body>
+    <div class="blocks-container"></div>
+  </body>
+  <script>
+    const container = document.querySelector(".blocks-container");
+
+    fetch("/medicines")
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        data.forEach((medicine) => {
+          let block = document.createElement("a");
+          block.classList.add("block");
+          block.innerText = medicine.name;
+          block.href = "/edit/" + medicine._id;
+
+          let quan = document.createElement("span");
+          quan.classList.add("quan");
+          quan.innerText = medicine.quantity;
+
+          block.appendChild(quan);
+          container.appendChild(block);
+        });
+      });
+  </script>
+</html>
