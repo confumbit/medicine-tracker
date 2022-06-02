@@ -1,0 +1,18 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.blocks-container {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.block {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  width: 100px;
+  background-color: grey;
+}
