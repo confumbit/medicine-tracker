@@ -16,6 +16,10 @@ app.use(express.urlencoded({ extended: true }));
 //Create client object for mongodb
 const client = new MongoClient(process.env.DB_URL);
 
+app.get("/", (req, res)=>{
+  res.sendFile(path.resolve(__dirname, "public", "index.html"));
+})
+
 app.get("/medicines", (req, res) => {
   client
     .connect()
