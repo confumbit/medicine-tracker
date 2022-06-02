@@ -1,6 +1,7 @@
 const express = require("express");
 const path = require("path");
 const { MongoClient } = require("mongodb");
+const { ObjectId } = require("mongodb");
 
 // Initialize environment variables
 require("dotenv").config();
@@ -16,9 +17,9 @@ app.use(express.urlencoded({ extended: true }));
 //Create client object for mongodb
 const client = new MongoClient(process.env.DB_URL);
 
-app.get("/", (req, res)=>{
+app.get("/", (req, res) => {
   res.sendFile(path.resolve(__dirname, "public", "index.html"));
-})
+});
 
 app.get("/medicines", (req, res) => {
   client
@@ -38,6 +39,11 @@ app.get("/medicines", (req, res) => {
     });
 });
 
+app.get("/edit/:id", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "public", "edit-form.html"));
+  console.log(req.params.id);
+});
+
 app.post("/add", (req, res) => {
   client
     .connect()
@@ -52,8 +58,41 @@ app.post("/add", (req, res) => {
       collection.insertOne(obj, (err, result) => {
         if (err) throw err;
         console.log("Document inserted successfully.", obj);
-        res.sendFile(path.resolve(__dirname, "public", "index.html"));
+        res.redirect("/");t
       });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(400).json({ msg: "Some unknown error has occured." });
+    });
+});
+
+app.post("/edit-medicine/:id", (req, res) => {
+  const { quantity, min, name } = req.body;
+  const _id = req.params.id;
+
+  update = {};
+  if (quantity !== "") update.quantity = parseInt(quantity);
+  if (min !== "") update.min = parseInt(min);
+  if (name !== "") update.name = name;
+
+  console.log(update);
+
+  client
+    .connect()
+    .then((client) => {
+      let db = client.db("medicine-tracker");
+      let collection = db.collection("medicines");
+
+      collection.updateOne(
+        { _id: new ObjectId(_id) },
+        [{ $set: update }],
+        (err, result) => {
+          if (err) throw err;
+          console.log("Document updated successfully.", result);
+          res.redirect("/");
+        }
+      );
     })
     .catch((err) => {
       console.log(err);
@@ -74,7 +113,7 @@ app.post("/week", (req, res) => {
         (err, result) => {
           if (err) throw err;
           console.log("Document updated successfully.");
-          res.sendFile(path.resolve(__dirname, "public", "index.html"));
+          res.redirect("/");
         }
       );
     })
