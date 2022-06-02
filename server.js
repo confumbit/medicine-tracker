@@ -58,7 +58,7 @@ app.post("/add", (req, res) => {
       collection.insertOne(obj, (err, result) => {
         if (err) throw err;
         console.log("Document inserted successfully.", obj);
-        res.redirect("/");t
+        res.redirect("/");
       });
     })
     .catch((err) => {
