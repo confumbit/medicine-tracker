@@ -9,6 +9,11 @@ fetch("/medicines")
       block.classList.add("block");
       block.innerText = medicine.name;
 
+      let quan = document.createElement("span");
+      quan.classList.add("quan");
+      quan.innerText = medicine.quantity;
+
+      block.appendChild(quan);
       container.appendChild(block);
     });
   });
