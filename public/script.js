@@ -11,7 +11,8 @@ fetch("/medicines")
       block.innerText = medicine.name;
 
       if (medicine.quantity <= medicine.min) {
-        block.style.backgroundColor = "rgb(201, 163, 163)";
+        block.style.backgroundImage =
+          "radial-gradient(rgb(231, 213, 207), rgb(167, 122, 111))";
         let arr = medicine.name.split(/(\s+)/);
         arr.forEach((i) => {
           if (i == " ") {

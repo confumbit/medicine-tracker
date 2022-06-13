@@ -86,14 +86,14 @@ button {
   padding: 10px;
   font-size: 18px;
   font-weight: 600;
-  color: #ffffff;
+  color: #232525;
   border-radius: 25px;
-  background-color: rgb(163, 201, 191);
+  background-image: radial-gradient(rgb(216, 231, 231), rgb(151, 175, 175));
   box-shadow: 8px 8px 24px 0 rgba(0, 0, 0, 0.2),
     -8px -8px 24px 0 rgba(0, 0, 0, 0.2);
 }
 .block .quan {
   font-size: 14px;
   font-weight: 700;
-  color: #f0f0f0;
+  color: #4f5353;
 }
