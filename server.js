@@ -100,6 +100,50 @@ app.post("/edit-medicine/:id", (req, res) => {
     });
 });
 
+app.post("/day", (req, res) => {
+  client
+    .connect()
+    .then((client) => {
+      let db = client.db("medicine-tracker");
+      let collection = db.collection("medicines");
+
+      collection.updateMany(
+        {},
+        [
+          {
+            $set: {
+              quantity: {
+                $add: [
+                  {
+                    $convert: {
+                      input: {
+                        $subtract: [
+                          "$quantity",
+                          { $multiply: ["$min", 0.143] },
+                        ],
+                      },
+                      to: "int",
+                    },
+                  },
+                  1,
+                ],
+              },
+            },
+          },
+        ],
+        (err, result) => {
+          if (err) throw err;
+          console.log("Document updated successfully.");
+          res.redirect("/");
+        }
+      );
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(400).json({ msg: "Some unknown error has occured." });
+    });
+});
+
 app.post("/week", (req, res) => {
   client
     .connect()
