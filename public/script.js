@@ -10,7 +10,7 @@ fetch("/medicines")
       block.classList.add("block");
       block.innerText = medicine.name;
 
-      if (medicine.quantity <= medicine.min) {
+      if (medicine.quantity < medicine.min) {
         block.style.backgroundImage =
           "radial-gradient(rgb(231, 213, 207), rgb(167, 122, 111))";
         let arr = medicine.name.split(/(\s+)/);
