@@ -33,6 +33,6 @@ fetch("/medicines")
 
       console.log(order);
       let wa = document.querySelector(".walink");
-      wa.href = "https://wa.me/919440089794?text=" + order;
+      wa.href = "https://wa.me/919440089794?text=For%20next%20week:%0A" + order;
     });
   });
