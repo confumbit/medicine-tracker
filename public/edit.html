@@ -23,7 +23,7 @@
           block.innerText = medicine.name;
           block.href = "/edit/" + medicine._id;
 
-          if (medicine.quantity <= medicine.min) {
+          if (medicine.quantity < medicine.min) {
             block.style.backgroundImage =
               "radial-gradient(rgb(231, 213, 207), rgb(167, 122, 111))";
           }
